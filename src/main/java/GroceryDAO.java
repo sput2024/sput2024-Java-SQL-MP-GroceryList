@@ -28,17 +28,20 @@ public class GroceryDAO {
         List<String> groceries = new ArrayList<>();
         try {
             //Write SQL logic here
-            String sql = "change me";
+            String sql = "SELECT * FROM grocery";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 groceries.add(rs.getString("grocery_name"));
+                
+               
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
         return groceries;
     }
+   
     /**
      * TODO: Insert a new row into the Grocery table, which contains a column named grocery_name.
      * A parameter groceryName is also provided, which should be the value used for grocery_name when inserting a
@@ -57,15 +60,29 @@ public class GroceryDAO {
      * @param groceryName the name of the grocery passed in from the GroceryService.
      */
     public void addGrocery(String groceryName){
+ 
         Connection connection = ConnectionUtil.getConnection();
         try {
             //Write SQL logic here
-            String sql = "change me";
+            String sql = "INSERT INTO grocery(Grocery_name) values (?)";
+          //  String sql = "INSERT INTO grocery(grocery_name) VALUES (ps.setString(1,groceryName))";
             PreparedStatement ps = connection.prepareStatement(sql);
-
-            //add code that leverages ps.setString here
-
+            ps.setString(1,groceryName);
+           
             ps.executeUpdate();
+            ResultSet rs = ps.executeQuery();
+           // while(rs.next()){
+           //     ps.setString(1,groceryName);
+            //    ps.executeUpdate();
+            //    ps.executeQuery();
+           // }
+            //add code that leverages ps.setString here
+     
+           
+            ps.executeQuery();
+            // Execute SQL query
+        
+ 
         }catch(SQLException e){
             e.printStackTrace();
         }
